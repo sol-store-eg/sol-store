@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOL | Official Store</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#fff;
+ color:#111;
+}
+header{
+ background:#111;
+ color:white;
+ padding:22px 15px;
+ text-align:center;
+}
+.logo{
+ font-size:42px;
+ letter-spacing:9px;
+ font-weight:bold;
+}
+header p{color:#bbb;font-size:12px;letter-spacing:3px}
+nav{
+ display:flex;
+ justify-content:center;
+ gap:25px;
+ padding:17px 10px;
+ border-bottom:1px solid #ddd;
+}
+nav a{color:#111;text-decoration:none;font-size:14px}
+.hero{
+ background:#171717;
+ color:white;
+ text-align:center;
+ padding:75px 15px;
+}
+.hero h1{font-size:36px;letter-spacing:5px}
+.hero p{color:#ccc;line-height:2}
+.btn{
+ display:inline-block;
+ background:white;
+ color:#111;
+ padding:13px 28px;
+ text-decoration:none;
+ margin-top:15px;
+}
+section{padding:45px 18px;text-align:center}
+section h2{letter-spacing:3px}
+.line{width:45px;height:2px;background:#999;margin:15px auto 30px}
+.products{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:15px;
+ max-width:800px;
+ margin:auto;
+}
+.product{
+ border:1px solid #eee;
+ padding:30px 10px;
+ background:#fafafa;
+}
+.product .symbol{font-size:35px;color:#aaa}
+.product h3{font-size:16px}
+.product p{color:#777;font-size:13px}
+footer{
+ background:#111;
+ color:#bbb;
+ text-align:center;
+ padding:30px 15px;
+ font-size:13px;
+}
+@media(min-width:650px){
+ .products{grid-template-columns:repeat(3,1fr)}
+ .hero{padding:110px 15px}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="logo">SOL</div>
+ <p>THE OFFICIAL STORE</p>
+</header>
+
+<nav>
+ <a href="#home">الرئيسية</a>
+ <a href="#products">المنتجات</a>
+ <a href="#about">عن SOL</a>
+ <a href="#contact">تواصل معنا</a>
+</nav>
+
+<div class="hero" id="home">
+ <h1>WELCOME TO SOL</h1>
+ <p>اكتشف أسلوبك الخاص<br>اختيارات مميزة، وتجربة تسوق مختلفة</p>
+ <a href="#products" class="btn">اكتشف منتجاتنا</a>
+</div>
+
+<section id="products">
+ <h2>OUR COLLECTION</h2>
+ <div class="line"></div>
+ <div class="products">
+  <div class="product">
+   <div class="symbol">◇</div>
+   <h3>المنتج الأول</h3>
+   <p>قريباً</p>
+  </div>
+  <div class="product">
+   <div class="symbol">◇</div>
+   <h3>المنتج الثاني</h3>
+   <p>قريباً</p>
+  </div>
+  <div class="product">
+   <div class="symbol">◇</div>
+   <h3>المنتج الثالث</h3>
+   <p>قريباً</p>
+  </div>
+ </div>
+</section>
+
+<section id="about">
+ <h2>ABOUT SOL</h2>
+ <div class="line"></div>
+ <p> SOL ليست مجرد متجر، بل بداية لعلامة تجارية بطموح مختلف.</p>
+</section>
+
+<section id="contact">
+ <h2>CONTACT US</h2>
+ <div class="line"></div>
+ <p>قريباً سيتم إطلاق قنوات التواصل والطلبات.</p>
+</section>
+
+<footer>
+ <div class="logo">SOL</div>
+ <p>© 2026 SOL. ALL RIGHTS RESERVED.</p>
+</footer>
+
+</body>
+</html>
