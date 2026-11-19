@@ -8,12 +8,13 @@
 <title>SOL | BEYOND THE ORDINARY</title>
 <style>
 :root{--bg:#050505;--panel:#101010;--panel2:#171717;--text:#fff;--muted:#aaa;--line:#292929;--soft:#e9e9e9}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Tahoma,sans-serif}a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}button{cursor:pointer}
-header{position:sticky;top:0;z-index:10;background:#050505ed;border-bottom:1px solid var(--line);padding:15px 6%;display:flex;align-items:center;justify-content:space-between;gap:20px;backdrop-filter:blur(10px)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;padding-bottom:calc(76px + env(safe-area-inset-bottom));background:var(--bg);color:var(--text);font-family:Arial,Tahoma,sans-serif}a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}button{cursor:pointer}
+header{position:sticky;top:0;z-index:10;background:#050505ed;border-bottom:1px solid var(--line);padding:15px 6%;display:flex;align-items:center;justify-content:center;gap:20px;backdrop-filter:blur(10px)}
 .logo{direction:ltr;font-size:32px;font-weight:900;letter-spacing:8px;color:#fff;white-space:nowrap}
+.logo-o{display:inline-block;letter-spacing:0;background:radial-gradient(circle at 35% 30%,#fff0b8 0%,#e5bd62 28%,#a87825 72%,#6f4a12 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 12px #c89b3a55}
 nav{display:flex;gap:22px;flex-wrap:wrap;font-size:12px;letter-spacing:1px;color:#ddd}
 nav a:hover,.muted-link:hover{color:#fff;text-decoration:underline}
-.header-actions{display:flex;gap:10px;align-items:center}
+.header-actions{display:none}
 .btn{border:1px solid #fff;background:#fff;color:#000;padding:12px 18px;font-size:12px;font-weight:700;letter-spacing:1px;display:inline-flex;justify-content:center;align-items:center;gap:8px}
 .btn.ghost{background:transparent;color:#fff}.btn.small{padding:8px 12px}.btn:disabled{opacity:.45;cursor:not-allowed}
 .hero{min-height:520px;padding:100px 7%;display:grid;place-items:center;text-align:center;background:radial-gradient(ellipse at 50% 40%,#202020 0,#0b0b0b 48%,#050505 78%)}
@@ -39,19 +40,17 @@ footer{padding:35px 7%;border-top:1px solid var(--line);text-align:center;color:
 .modal{width:min(560px,100%);max-height:90vh;overflow:auto;background:#111;border:1px solid #444;padding:22px}.modal h2{margin:0 0 18px;font-size:20px}.modal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.x{background:none;color:#fff;border:0;font-size:26px}
 .field{margin:12px 0}.field label{display:block;color:#bbb;font-size:12px;margin-bottom:7px}.field textarea{min-height:75px;resize:vertical}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.cart-row{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid #333;padding:12px 0;align-items:center}.cart-row small{display:block;color:#aaa;margin-top:5px}.cart-actions{display:flex;gap:7px;align-items:center}
-.admin-bar{display:none;background:#151515;border-bottom:1px solid #333;padding:10px 6%;text-align:center;font-size:12px;color:#ddd}.admin-bar.show{display:block}
-#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#fff;color:#000;padding:12px 18px;z-index:50;display:none;max-width:90%;text-align:center}
+.admin-bar{display:none!important}
+.bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:25;display:flex;align-items:stretch;justify-content:space-around;gap:4px;padding:8px 5px calc(8px + env(safe-area-inset-bottom));background:#080808f5;border-top:1px solid #333;backdrop-filter:blur(12px)}
+.bottom-nav a,.bottom-nav button{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:7px 3px;background:transparent;border:0;color:#eee;font-size:10px;white-space:nowrap}
+.bottom-nav a:active,.bottom-nav button:active{background:#222}.bottom-nav button[hidden]{display:none}
+#toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#fff;color:#000;padding:12px 18px;z-index:50;display:none;max-width:90%;text-align:center}
 @media(max-width:850px){.product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.category-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){header{flex-wrap:wrap;justify-content:center}nav{justify-content:center;gap:14px}.header-actions{width:100%;justify-content:center}.hero{min-height:440px;padding:80px 5%}section{padding:52px 5%}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.form-grid{grid-template-columns:1fr}.product-info{padding:10px}.product-controls{flex-direction:column}.toolbar input{max-width:none}.toolbar select{max-width:none;flex:1}}
+@media(max-width:600px){header{padding:13px 5%}.logo{font-size:30px}nav{display:none}.hero{min-height:440px;padding:80px 5%}section{padding:52px 5%}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.form-grid{grid-template-columns:1fr}.product-info{padding:10px}.product-controls{flex-direction:column}.toolbar input{max-width:none}.toolbar select{max-width:none;flex:1}.bottom-nav a,.bottom-nav button{font-size:9px}}
 </style>
 </head>
 <body>
-<header>
-  <a class="logo" href="#home" aria-label="SOL">SOL</a>
-  <nav><a href="#home">الرئيسية</a><a href="#categories">الأقسام</a><a href="#products">المنتجات</a><a href="#about">عن SOL</a></nav>
-  <div class="header-actions"><button class="btn ghost small" id="cartOpen">السلة <span id="cartCount">0</span></button><button class="btn small" id="adminOpen">دخول الإدارة</button></div>
-</header>
-<div class="admin-bar" id="adminBar">وضع الإدارة مفعّل — <button class="btn ghost small" id="addProduct">إضافة منتج</button> <button class="btn ghost small" id="logout">تسجيل خروج</button></div>
+<header><a class="logo" href="#home" aria-label="SOL">S<span class="logo-o">O</span>L</a></header>
 <main>
 <section class="hero" id="home"><div><div class="eyebrow">MEN'S COLLECTION</div><h1>BEYOND THE<br>ORDINARY.</h1><div class="rule"></div><p>DEFINED BY DETAILS.</p><a class="btn" href="#products">اكتشف المجموعة</a></div></section>
 <section id="categories"><div class="section-head"><h2>OUR COLLECTION</h2><p>اختار أسلوبك</p></div><div class="category-grid">
@@ -68,41 +67,44 @@ footer{padding:35px 7%;border-top:1px solid var(--line);text-align:center;color:
 </section>
 <section class="statement" id="about"><h2>BEYOND THE ORDINARY.</h2><div class="rule"></div><p>الأناقة مش مجرد لبس؛ هي ثقة بتظهر في كل تفصيلة.<br>اختار اللي يعبر عنك.</p></section>
 </main>
-<footer> <div class="logo">SOL</div><div>BEYOND THE ORDINARY</div><div>© 2026 SOL — ALL RIGHTS RESERVED</div><div style="margin-top:10px"><a href="https://wa.me/201111235494" target="_blank" rel="noopener">تواصل معنا على واتساب</a></div></footer>
+<footer><div class="logo">S<span class="logo-o">O</span>L</div><div>BEYOND THE ORDINARY</div><div>© 2026 SOL — ALL RIGHTS RESERVED</div><div style="margin-top:10px"><a href="https://wa.me/201111235494" target="_blank" rel="noopener">تواصل معنا على واتساب</a></div></footer>
+
+<nav class="bottom-nav" aria-label="التنقل الرئيسي">
+<a href="#home">⌂<span>الرئيسية</span></a>
+<a href="#categories">☷<span>الأقسام</span></a>
+<button id="cartOpen">▢<span>السلة <b id="cartCount">0</b></span></button>
+<button id="adminOpen">♙<span>دخول الإدارة</span></button>
+<button id="addProduct" hidden>＋<span>إضافة منتج</span></button>
+<button id="logout" hidden>↪<span>خروج الإدارة</span></button>
+</nav>
 
 <div class="overlay" id="adminModal"><div class="modal"><div class="modal-top"><h2>دخول الإدارة</h2><button class="x" data-close="adminModal">×</button></div><form id="loginForm"><div class="field"><label>البريد الإلكتروني</label><input id="email" type="email" autocomplete="username" required></div><div class="field"><label>كلمة المرور</label><input id="password" type="password" autocomplete="current-password" required></div><button class="btn" type="submit">تسجيل الدخول</button><p class="notice">الدخول متاح لحساب الإدارة المصرّح له فقط.</p></form></div></div>
-
 <div class="overlay" id="productModal"><div class="modal"><div class="modal-top"><h2 id="productModalTitle">إضافة منتج</h2><button class="x" data-close="productModal">×</button></div><form id="productForm">
-<input type="hidden" id="productId">
-<div class="field"><label>اسم المنتج *</label><input id="pName" required maxlength="120"></div>
+<input type="hidden" id="productId"><div class="field"><label>اسم المنتج *</label><input id="pName" required maxlength="120"></div>
 <div class="field"><label>الوصف</label><textarea id="pDescription" maxlength="1000"></textarea></div>
 <div class="form-grid"><div class="field"><label>السعر بالجنيه *</label><input id="pPrice" type="number" min="0" step="0.01" required></div><div class="field"><label>رابط صورة المنتج</label><input id="pImage" type="url" placeholder="https://..."></div></div>
 <div class="form-grid"><div class="field"><label>المقاسات (افصل بينها بفاصلة)</label><input id="pSizes" placeholder="M, L, XL, XXL"></div><div class="field"><label>الألوان (افصل بينها بفاصلة)</label><input id="pColors" placeholder="أسود, أبيض"></div></div>
 <button class="btn" type="submit">حفظ المنتج</button></form></div></div>
-
 <div class="overlay" id="cartModal"><div class="modal"><div class="modal-top"><h2>سلة المشتريات</h2><button class="x" data-close="cartModal">×</button></div><div id="cartItems"></div><div class="cart-row"><b>الإجمالي</b><b id="cartTotal">0 ج.م</b></div><div class="field"><label>اسم العميل</label><input id="customerName" placeholder="اسمك"></div><div class="field"><label>العنوان / المنطقة</label><textarea id="customerAddress" placeholder="عنوان التوصيل"></textarea></div><button class="btn" id="checkout">إرسال الطلب عبر واتساب</button></div></div>
 <div id="toast"></div>
 
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-
 const SUPABASE_URL = 'https://bnwfdpxxzipebpfynnrr.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_bOYW-1NEG0ZvfR9f7SxNYQ_vmN4gzNb';
 const ADMIN_UID = 'b733b4e6-d01e-4a7e-b585-9bd611daf60d';
 const WHATSAPP = '201111235494';
 const db = createClient(SUPABASE_URL, SUPABASE_KEY);
-
-let products = [];
-let cart = [];
-let isAdmin = false;
+let products = [], cart = [], isAdmin = false;
 const $ = id => document.getElementById(id);
 const money = n => `${Number(n||0).toLocaleString('ar-EG')} ج.م`;
 const toast = msg => { $('toast').textContent=msg; $('toast').style.display='block'; setTimeout(()=>{$('toast').style.display='none'},2800); };
 const show = id => $(id).classList.add('show');
 const hide = id => $(id).classList.remove('show');
 document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>hide(b.dataset.close)));
-
 function allowedImage(url){try{const u=new URL(url);return u.protocol==='https:'?u.href:''}catch{return ''}}
+function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function escapeAttr(s){return escapeHtml(s)}
 function renderProducts(){
  const term=$('search').value.trim().toLowerCase();
  let list=products.filter(p=>(p.name||'').toLowerCase().includes(term)||(p.description||'').toLowerCase().includes(term));
@@ -111,11 +113,8 @@ function renderProducts(){
  if(sort==='high')list.sort((a,b)=>Number(b.price)-Number(a.price));
  if(!list.length){$('productGrid').innerHTML='<div class="empty">لا توجد منتجات حالياً. تابعنا قريباً.</div>';return}
  $('productGrid').innerHTML=list.map(p=>{
-  const image=allowedImage(p.image_url);
-  const sizes=Array.isArray(p.sizes)?p.sizes:[];
-  const colors=Array.isArray(p.colors)?p.colors:[];
-  return `<article class="product">
-   ${image?`<img src="${escapeAttr(image)}" alt="${escapeAttr(p.name)}" loading="lazy" onerror="this.outerHTML='<div class=&quot;no-image&quot;>SOL</div>'">`:'<div class="no-image">SOL</div>'}
+  const image=allowedImage(p.image_url), sizes=Array.isArray(p.sizes)?p.sizes:[], colors=Array.isArray(p.colors)?p.colors:[];
+  return `<article class="product">${image?`<img src="${escapeAttr(image)}" alt="${escapeAttr(p.name)}" loading="lazy" onerror="this.outerHTML='<div class=&quot;no-image&quot;>SOL</div>'">`:'<div class="no-image">SOL</div>'}
    <div class="product-info"><h3>${escapeHtml(p.name)}</h3><div class="desc">${escapeHtml(p.description||'')}</div><div class="price">${money(p.price)}</div>
    ${sizes.length?`<div>${sizes.map(x=>`<span class="pill">${escapeHtml(x)}</span>`).join('')}</div>`:''}
    ${colors.length?`<div>${colors.map(x=>`<span class="pill">${escapeHtml(x)}</span>`).join('')}</div>`:''}
@@ -125,15 +124,13 @@ function renderProducts(){
  $('productGrid').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editProduct(b.dataset.edit));
  $('productGrid').querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteProduct(b.dataset.delete));
 }
-function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function escapeAttr(s){return escapeHtml(s)}
 async function loadProducts(){
  $('productGrid').innerHTML='<div class="empty">جاري تحميل المنتجات...</div>';
  const {data,error}=await db.from('products').select('id,name,description,price,image_url,sizes,colors');
  if(error){$('productGrid').innerHTML='<div class="empty">تعذر تحميل المنتجات حالياً.</div>';$('loadNote').textContent='راجع اتصال Supabase وسياسات القراءة (RLS) لجدول products.';console.error(error);return}
- products=data||[]; $('loadNote').textContent=products.length?'':'لم تتم إضافة منتجات بعد.';renderProducts();
+ products=data||[];$('loadNote').textContent=products.length?'':'لم تتم إضافة منتجات بعد.';renderProducts();
 }
-function addToCart(id){const p=products.find(x=>String(x.id)===String(id));if(!p)return;cart.push(p);$('cartCount').textContent=cart.length;toast('تمت إضافة المنتج للسلة');}
+function addToCart(id){const p=products.find(x=>String(x.id)===String(id));if(!p)return;cart.push(p);$('cartCount').textContent=cart.length;toast('تمت إضافة المنتج للسلة')}
 function renderCart(){
  $('cartItems').innerHTML=cart.length?cart.map((p,i)=>`<div class="cart-row"><div>${escapeHtml(p.name)}<small>${money(p.price)}</small></div><div class="cart-actions"><button class="btn ghost small" data-remove="${i}">إزالة</button></div></div>`).join(''):'<div class="empty">السلة فارغة</div>';
  $('cartItems').querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{cart.splice(Number(b.dataset.remove),1);$('cartCount').textContent=cart.length;renderCart()});
@@ -144,21 +141,18 @@ $('checkout').onclick=()=>{
  if(!cart.length){toast('السلة فارغة');return}
  const name=$('customerName').value.trim(),address=$('customerAddress').value.trim();
  if(!name||!address){toast('اكتب الاسم والعنوان أولاً');return}
- const total=cart.reduce((s,p)=>s+Number(p.price||0),0);
- const lines=cart.map((p,i)=>`${i+1}- ${p.name} — ${money(p.price)}`).join('\n');
+ const total=cart.reduce((s,p)=>s+Number(p.price||0),0),lines=cart.map((p,i)=>`${i+1}- ${p.name} — ${money(p.price)}`).join('\n');
  const msg=`طلب جديد من متجر SOL\nالاسم: ${name}\nالعنوان: ${address}\n\nالمنتجات:\n${lines}\n\nالإجمالي: ${money(total)}\nيرجى تأكيد التوفر وتكلفة الشحن.`;
  window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`,'_blank','noopener');
 };
 $('search').addEventListener('input',renderProducts);$('sort').addEventListener('change',renderProducts);
-
 async function refreshAdmin(){
  const {data:{session}}=await db.auth.getSession();
  isAdmin=!!session&&session.user.id===ADMIN_UID;
- $('adminBar').classList.toggle('show',isAdmin);
- $('adminOpen').textContent=isAdmin?'الإدارة':'دخول الإدارة';
+ $('addProduct').hidden=!isAdmin;$('logout').hidden=!isAdmin;$('adminOpen').hidden=isAdmin;
  renderProducts();
 }
-$('adminOpen').onclick=async()=>{if(isAdmin){show('productModal');resetProductForm();return}show('adminModal')};
+$('adminOpen').onclick=()=>show('adminModal');
 $('loginForm').onsubmit=async e=>{
  e.preventDefault();
  const {data,error}=await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
@@ -169,7 +163,7 @@ $('loginForm').onsubmit=async e=>{
 $('logout').onclick=async()=>{await db.auth.signOut();await refreshAdmin();toast('تم تسجيل الخروج')};
 db.auth.onAuthStateChange(()=>{setTimeout(refreshAdmin,0)});
 function resetProductForm(){$('productForm').reset();$('productId').value='';$('productModalTitle').textContent='إضافة منتج'}
-$('addProduct').onclick=()=>{resetProductForm();show('productModal')};
+$('addProduct').onclick=()=>{if(!isAdmin){toast('غير مصرح');return}resetProductForm();show('productModal')};
 function editProduct(id){
  const p=products.find(x=>String(x.id)===String(id));if(!p)return;
  $('productId').value=p.id;$('pName').value=p.name||'';$('pDescription').value=p.description||'';$('pPrice').value=p.price??'';$('pImage').value=p.image_url||'';
@@ -178,11 +172,9 @@ function editProduct(id){
 }
 $('productForm').onsubmit=async e=>{
  e.preventDefault();if(!isAdmin){toast('سجّل دخول الإدارة أولاً');return}
- const image=$('pImage').value.trim();
- if(image&&!allowedImage(image)){toast('رابط الصورة لازم يبدأ بـ https://');return}
+ const image=$('pImage').value.trim();if(image&&!allowedImage(image)){toast('رابط الصورة لازم يبدأ بـ https://');return}
  const payload={name:$('pName').value.trim(),description:$('pDescription').value.trim()||null,price:Number($('pPrice').value),image_url:image||null,sizes:$('pSizes').value.split(',').map(x=>x.trim()).filter(Boolean),colors:$('pColors').value.split(',').map(x=>x.trim()).filter(Boolean)};
- const id=$('productId').value;
- const result=id?await db.from('products').update(payload).eq('id',id):await db.from('products').insert(payload);
+ const id=$('productId').value,result=id?await db.from('products').update(payload).eq('id',id):await db.from('products').insert(payload);
  if(result.error){console.error(result.error);toast('فشل الحفظ. راجع صلاحيات RLS وأعمدة الجدول.');return}
  hide('productModal');toast('تم حفظ المنتج');await loadProducts();
 };
@@ -192,8 +184,8 @@ async function deleteProduct(id){
  if(error){console.error(error);toast('فشل الحذف. راجع صلاحيات RLS.');return}
  toast('تم حذف المنتج');await loadProducts();
 }
-await refreshAdmin();
-await loadProducts();
+await refreshAdmin();await loadProducts();
 </script>
 </body>
-</html>
+  </html>
+  
