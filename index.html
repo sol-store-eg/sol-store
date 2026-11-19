@@ -1,142 +1,283 @@
 
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SOL | Official Store</title>
+<title>SOL | The Art of Style</title>
+<meta name="description" content="SOL — Beyond the Ordinary. Discover men's fashion, accessories and lifestyle.">
+
 <style>
-*{box-sizing:border-box}
-body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#fff;
- color:#111;
+:root {
+  --black: #101010;
+  --white: #f6f5f2;
+  --gold: #c5a66c;
+  --muted: #999;
 }
-header{
- background:#111;
- color:white;
- padding:22px 15px;
- text-align:center;
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: Arial, sans-serif;
 }
-.logo{
- font-size:42px;
- letter-spacing:9px;
- font-weight:bold;
+
+a { color: inherit; text-decoration: none; }
+
+header {
+  min-height: 78px;
+  padding: 18px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #292929;
 }
-header p{color:#bbb;font-size:12px;letter-spacing:3px}
-nav{
- display:flex;
- justify-content:center;
- gap:25px;
- padding:17px 10px;
- border-bottom:1px solid #ddd;
+
+.logo {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 7px;
 }
-nav a{color:#111;text-decoration:none;font-size:14px}
-.hero{
- background:#171717;
- color:white;
- text-align:center;
- padding:75px 15px;
+
+.logo-o {
+  display: inline-block;
+  color: var(--gold);
+  background: linear-gradient(120deg,#8e6d37,#f5dfaa,#a77c38,#e7cc91);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-.hero h1{font-size:36px;letter-spacing:5px}
-.hero p{color:#ccc;line-height:2}
-.btn{
- display:inline-block;
- background:white;
- color:#111;
- padding:13px 28px;
- text-decoration:none;
- margin-top:15px;
+
+nav {
+  display: flex;
+  gap: 25px;
+  font-size: 12px;
+  letter-spacing: 1px;
 }
-section{padding:45px 18px;text-align:center}
-section h2{letter-spacing:3px}
-.line{width:45px;height:2px;background:#999;margin:15px auto 30px}
-.products{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:15px;
- max-width:800px;
- margin:auto;
+
+nav a:hover { color: var(--gold); }
+
+.hero {
+  min-height: 570px;
+  padding: 100px 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at center,#29251d 0%,#171717 42%,#101010 75%);
 }
-.product{
- border:1px solid #eee;
- padding:30px 10px;
- background:#fafafa;
+
+.hero .eyebrow {
+  color: var(--gold);
+  letter-spacing: 5px;
+  font-size: 11px;
+  margin-bottom: 28px;
 }
-.product .symbol{font-size:35px;color:#aaa}
-.product h3{font-size:16px}
-.product p{color:#777;font-size:13px}
-footer{
- background:#111;
- color:#bbb;
- text-align:center;
- padding:30px 15px;
- font-size:13px;
+
+.hero h1 {
+  font-size: clamp(40px,8vw,88px);
+  letter-spacing: 3px;
+  font-weight: 700;
+  line-height: 1.1;
 }
-@media(min-width:650px){
- .products{grid-template-columns:repeat(3,1fr)}
- .hero{padding:110px 15px}
+
+.hero p {
+  color: #bcbcbc;
+  letter-spacing: 5px;
+  font-size: 12px;
+  margin-top: 25px;
+}
+
+.gold-line {
+  width: 55px;
+  height: 2px;
+  background: linear-gradient(90deg,#8e6d37,#f5dfaa,#a77c38);
+  margin: 30px auto;
+}
+
+.btn {
+  display: inline-block;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 14px 32px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  transition: .3s;
+}
+
+.btn:hover {
+  background: var(--gold);
+  color: var(--black);
+}
+
+section { padding: 75px 7%; }
+
+.section-title {
+  text-align: center;
+  margin-bottom: 45px;
+}
+
+.section-title h2 {
+  font-size: 27px;
+  letter-spacing: 4px;
+}
+
+.section-title p {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 3px;
+  margin-top: 12px;
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 16px;
+}
+
+.category {
+  min-height: 190px;
+  border: 1px solid #303030;
+  background: linear-gradient(145deg,#242424,#151515);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: .3s;
+  padding: 20px;
+}
+
+.category:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+}
+
+.category h3 {
+  font-size: 17px;
+  letter-spacing: 2px;
+}
+
+.category span {
+  display: block;
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-top: 12px;
+}
+
+.statement {
+  text-align: center;
+  background: #171717;
+  padding: 85px 8%;
+}
+
+.statement h2 {
+  font-size: clamp(25px,5vw,42px);
+  letter-spacing: 3px;
+}
+
+.statement p {
+  color: #aaa;
+  margin-top: 18px;
+  line-height: 1.8;
+}
+
+footer {
+  padding: 35px 7%;
+  text-align: center;
+  border-top: 1px solid #292929;
+}
+
+footer .logo { margin-bottom: 15px; }
+
+footer p {
+  color: #888;
+  font-size: 11px;
+  letter-spacing: 2px;
+  line-height: 2;
+}
+
+@media(max-width:700px) {
+  header { flex-direction: column; gap: 18px; }
+  nav { flex-wrap: wrap; justify-content: center; gap: 15px; }
+  .hero { min-height: 470px; }
+  .categories { grid-template-columns: repeat(2,1fr); }
+  section { padding: 55px 5%; }
+}
+
+@media(max-width:400px) {
+  .categories { grid-template-columns: 1fr; }
 }
 </style>
 </head>
+
 <body>
 
 <header>
- <div class="logo">SOL</div>
- <p>THE OFFICIAL STORE</p>
+  <a href="#" class="logo">S<span class="logo-o">O</span>L</a>
+  <nav>
+    <a href="#home">HOME</a>
+    <a href="#categories">CATEGORIES</a>
+    <a href="#about">ABOUT</a>
+    <a href="#contact">CONTACT</a>
+  </nav>
 </header>
 
-<nav>
- <a href="#home">الرئيسية</a>
- <a href="#products">المنتجات</a>
- <a href="#about">عن SOL</a>
- <a href="#contact">تواصل معنا</a>
-</nav>
+<main>
+  <section class="hero" id="home">
+    <div class="eyebrow">THE ART OF STYLE</div>
+    <h1>BEYOND THE<br>ORDINARY.</h1>
+    <div class="gold-line"></div>
+    <p>DEFINED BY DETAILS.</p>
+    <a class="btn" href="#categories">EXPLORE COLLECTION</a>
+  </section>
 
-<div class="hero" id="home">
- <h1>WELCOME TO SOL</h1>
- <p>اكتشف أسلوبك الخاص<br>اختيارات مميزة، وتجربة تسوق مختلفة</p>
- <a href="#products" class="btn">اكتشف منتجاتنا</a>
-</div>
+  <section id="categories">
+    <div class="section-title">
+      <h2>OUR COLLECTIONS</h2>
+      <p>STYLE THAT DEFINES YOU</p>
+    </div>
 
-<section id="products">
- <h2>OUR COLLECTION</h2>
- <div class="line"></div>
- <div class="products">
-  <div class="product">
-   <div class="symbol">◇</div>
-   <h3>المنتج الأول</h3>
-   <p>قريباً</p>
-  </div>
-  <div class="product">
-   <div class="symbol">◇</div>
-   <h3>المنتج الثاني</h3>
-   <p>قريباً</p>
-  </div>
-  <div class="product">
-   <div class="symbol">◇</div>
-   <h3>المنتج الثالث</h3>
-   <p>قريباً</p>
-  </div>
- </div>
-</section>
+    <div class="categories">
+      <a class="category" href="#contact">
+        <div><h3>CASUAL WEAR</h3><span>EVERYDAY ELEGANCE</span></div>
+      </a>
+      <a class="category" href="#contact">
+        <div><h3>SPORTSWEAR</h3><span>MOVE WITH CONFIDENCE</span></div>
+      </a>
+      <a class="category" href="#contact">
+        <div><h3>WATCHES</h3><span>TIMELESS DETAILS</span></div>
+      </a>
+      <a class="category" href="#contact">
+        <div><h3>ACCESSORIES</h3><span>THE FINAL TOUCH</span></div>
+      </a>
+      <a class="category" href="#contact">
+        <div><h3>FRAGRANCE & CARE</h3><span>YOUR SIGNATURE</span></div>
+      </a>
+      <a class="category" href="#contact">
+        <div><h3>FOOTWEAR</h3><span>STEP INTO STYLE</span></div>
+      </a>
+    </div>
+  </section>
 
-<section id="about">
- <h2>ABOUT SOL</h2>
- <div class="line"></div>
- <p> SOL ليست مجرد متجر، بل بداية لعلامة تجارية بطموح مختلف.</p>
-</section>
+  <section class="statement" id="about">
+    <h2>DEFINED BY DETAILS.</h2>
+    <div class="gold-line"></div>
+    <p>
+      Style is more than what you wear.<br>
+      It is the confidence behind every detail.
+    </p>
+  </section>
+</main>
 
-<section id="contact">
- <h2>CONTACT US</h2>
- <div class="line"></div>
- <p>قريباً سيتم إطلاق قنوات التواصل والطلبات.</p>
-</section>
-
-<footer>
- <div class="logo">SOL</div>
- <p>© 2026 SOL. ALL RIGHTS RESERVED.</p>
+<footer id="contact">
+  <div class="logo">S<span class="logo-o">O</span>L</div>
+  <p>THE ART OF STYLE</p>
+  <p>BEYOND THE ORDINARY.</p>
+  <p>© 2026 SOL. ALL RIGHTS RESERVED.</p>
 </footer>
 
 </body>
