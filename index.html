@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#101010">
-<title>SOL | Beyond the Ordinary</title>
-<meta name="description" content="SOL — Beyond the Ordinary. Men's fashion, accessories and lifestyle.">
+<title>AXEN | Beyond the Ordinary</title>
+<meta name="description" content="AXEN — Beyond the Ordinary. Men's fashion, accessories and lifestyle.">
 <style>
-:root{--black:#101010;--panel:#171717;--panel2:#202020;--white:#f6f5f2;--gold:#c5a66c;--muted:#a5a19a;--line:#34312b;--danger:#c66b62}
+:root{--black:#101010;--panel:#171717;--panel2:#202020;--white:#f6f5f2;--gold:#f5f5f5;--muted:#a5a19a;--line:#34312b;--danger:#c66b62}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--black);color:var(--white);font-family:Arial,Tahoma,sans-serif;line-height:1.6;padding-bottom:86px}
@@ -17,14 +17,14 @@ a{color:inherit;text-decoration:none}
 button{cursor:pointer}
 .topbar{height:76px;padding:12px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #292929;background:#101010;position:relative;z-index:2}
 .logo{font-family:Arial,sans-serif;font-size:34px;font-weight:900;letter-spacing:7px;direction:ltr;display:inline-block}
-.logo-o{background:linear-gradient(120deg,#8e6d37,#f5dfaa,#a77c38,#e7cc91);-webkit-background-clip:text;background-clip:text;color:transparent}
+.logo-o{background:linear-gradient(120deg,#bdbdbd,#ffffff,#d8d8d8,#ffffff);-webkit-background-clip:text;background-clip:text;color:transparent}
 .top-note{font-size:10px;letter-spacing:3px;color:var(--gold);direction:ltr}
-.hero{min-height:570px;padding:95px 7%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at center,#29251d 0%,#171717 42%,#101010 78%)}
+.hero{min-height:570px;padding:95px 7%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at center,#242424 0%,#171717 42%,#101010 78%)}
 .hero:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(16,16,16,.9),rgba(16,16,16,.57),rgba(16,16,16,.9)),url("https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=1600&q=80") center 35%/cover;opacity:.27;filter:grayscale(1)}
 .eyebrow{color:var(--gold);letter-spacing:5px;font-size:11px;margin-bottom:25px;direction:ltr}
 .hero h1{font-size:clamp(42px,8vw,88px);letter-spacing:3px;line-height:1.08;direction:ltr}
 .hero p{color:#c2bdb4;letter-spacing:5px;font-size:12px;margin-top:22px;direction:ltr}
-.gold-line{width:55px;height:2px;background:linear-gradient(90deg,#8e6d37,#f5dfaa,#a77c38);margin:27px auto}
+.gold-line{width:55px;height:2px;background:linear-gradient(90deg,#bdbdbd,#ffffff,#d8d8d8);margin:27px auto}
 .btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--gold);color:var(--gold);background:transparent;padding:12px 25px;font-size:11px;letter-spacing:2px;transition:.25s;direction:ltr}
 .btn:hover{background:var(--gold);color:var(--black)}
 section{padding:68px 7%}
@@ -97,7 +97,7 @@ footer p{color:#888;font-size:10px;letter-spacing:2px;line-height:2;direction:lt
 </head>
 <body>
 <header class="topbar">
-  <a href="#home" class="logo" aria-label="SOL">S<span class="logo-o">O</span>L</a>
+  <a href="#home" class="logo" aria-label="AXEN">AXEN</a>
   <div class="top-note">BEYOND THE ORDINARY</div>
 </header>
 
@@ -149,8 +149,8 @@ footer p{color:#888;font-size:10px;letter-spacing:2px;line-height:2;direction:lt
 </main>
 
 <footer id="contact">
-  <div class="logo">S<span class="logo-o">O</span>L</div>
-  <p>THE ART OF STYLE</p><p>BEYOND THE ORDINARY.</p><p>© 2026 SOL. ALL RIGHTS RESERVED.</p>
+  <div class="logo">AXEN</div>
+  <p>THE ART OF STYLE</p><p>BEYOND THE ORDINARY.</p><p>© 2026 AXEN. ALL RIGHTS RESERVED.</p>
 </footer>
 
 <nav class="bottom-nav" aria-label="التنقل الرئيسي">
@@ -214,7 +214,7 @@ const db = window.supabase ? window.supabase.createClient(SUPABASE_URL,SUPABASE_
 let products = [];
 let activeFilter = "الكل";
 let isAdmin = false;
-let cart = JSON.parse(localStorage.getItem("sol_cart") || "[]");
+let cart = JSON.parse(localStorage.getItem("axen_cart") || "[]");
 let selectedProductImages=[];
 let editingGalleryUrls=[];
 
@@ -255,7 +255,7 @@ document.querySelectorAll(".filter").forEach(b=>b.addEventListener("click",()=>{
 document.querySelectorAll(".category").forEach(a=>a.addEventListener("click",()=>{activeFilter=a.dataset.filter;document.querySelectorAll(".filter").forEach(x=>x.classList.toggle("active",x.dataset.filter===activeFilter));renderProducts()}));
 
 function addToCart(id){const p=products.find(x=>String(x.id)===String(id));if(!p)return;const item=cart.find(x=>String(x.id)===String(id));if(item)item.qty++;else cart.push({id:p.id,name:p.name,price:Number(p.price),qty:1});saveCart();toast("تمت إضافة المنتج إلى السلة")}
-function saveCart(){localStorage.setItem("sol_cart",JSON.stringify(cart));document.getElementById("cartCount").textContent=cart.reduce((n,x)=>n+x.qty,0)}
+function saveCart(){localStorage.setItem("axen_cart",JSON.stringify(cart));document.getElementById("cartCount").textContent=cart.reduce((n,x)=>n+x.qty,0)}
 function openCart(){renderCart();showModal("cartModal")}
 function renderCart(){
  const list=document.getElementById("cartList");
@@ -266,7 +266,7 @@ function renderCart(){
 function changeQty(id,d){const x=cart.find(i=>String(i.id)===String(id));if(!x)return;x.qty+=d;if(x.qty<=0)cart=cart.filter(i=>String(i.id)!==String(id));saveCart();renderCart()}
 function checkoutWhatsApp(){
  if(!cart.length){toast("السلة فارغة");return}
- const lines=["مرحبًا، أريد طلب المنتجات التالية من متجر SOL:","",...cart.map(x=>`- ${x.name} × ${x.qty} = ${money(x.price*x.qty)}`),"",`الإجمالي: ${money(cart.reduce((n,x)=>n+x.price*x.qty,0))}`];
+ const lines=["مرحبًا، أريد طلب المنتجات التالية من متجر AXEN:","",...cart.map(x=>`- ${x.name} × ${x.qty} = ${money(x.price*x.qty)}`),"",`الإجمالي: ${money(cart.reduce((n,x)=>n+x.price*x.qty,0))}`];
  const url="https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(lines.join("\n"));
  window.open(url,"_blank"); 
 }
