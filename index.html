@@ -203,7 +203,27 @@ footer p{color:#888;font-size:10px;letter-spacing:2px;line-height:2;direction:lt
 </div>
 <div class="toast" id="toast"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+/* SOL Category and product detail views */
+const solViewStyle=document.createElement("style");
+solViewStyle.textContent=".sol-view{position:fixed;inset:0;background:#101010;z-index:10000;overflow:auto;padding:20px 5% 80px}.sol-view-head{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #333;padding-bottom:16px;margin-bottom:20px}.sol-view button{background:#181818;color:#f6f5f2;border:1px solid #555;padding:10px 16px}.sol-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.sol-main-image{width:100%;max-height:65vh;object-fit:contain;background:#222}.sol-thumbs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.sol-thumbs img{width:70px;height:70px;object-fit:cover;border:1px solid #555;cursor:pointer}.sol-detail-info{padding:15px}.sol-detail-info h2{margin-bottom:12px}.sol-detail-info .price{font-size:22px;margin:15px 0}.sol-view .product-grid{margin-top:10px}@media(max-width:650px){.sol-detail-grid{grid-template-columns:1fr}.sol-main-image{max-height:55vh}}";
+document.head.appendChild(solViewStyle);
+function solCloseView(){document.getElementById("solView").remove();}
+function openCategoryView(category){
+ const shown=products.filter(p=>p.category===category);
+ const view=document.createElement("div");view.id="solView";view.className="sol-view";
+ view.innerHTML='<div class="sol-view-head"><button onclick="solCloseView()">رجوع</button><h2>'+safe(category)+'</h2><span></span></div><div class="product-grid">'+(shown.length?shown.map(p=>'<article class="product-card"><div class="product-photo" onclick="openProductDetails(\''+safe(p.id)+'\')" style="cursor:pointer"><img src="'+safe((Array.isArray(p.gallery_urls)&&p.gallery_urls[0])||p.image_url||'')+'" alt="'+safe(p.name)+'" style="width:100%;height:100%;object-fit:cover"></div><div class="product-info"><h3 onclick="openProductDetails(\''+safe(p.id)+'\')" style="cursor:pointer">'+safe(p.name)+'</h3><div class="price">'+money(p.price)+'</div><button class="small-btn primary" onclick="addToCart(\''+safe(p.id)+'\')">أضف للسلة</button></div></article>').join(''):'<div class="empty">لا توجد منتجات في هذا القسم حاليًا.</div>')+'</div>';
+ document.body.appendChild(view);
+}
+function openProductDetails(id){
+ const p=products.find(x=>String(x.id)===String(id));if(!p)return;
+ const imgs=(Array.isArray(p.gallery_urls)&&p.gallery_urls.length?p.gallery_urls:[p.image_url]).filter(Boolean);
+ const view=document.createElement("div");view.id="solView";view.className="sol-view";
+ view.innerHTML='<div class="sol-view-head"><button onclick="solCloseView()">رجوع</button><span>تفاصيل المنتج</span><span></span></div><div class="sol-detail-grid"><div><img id="solMainImage" class="sol-main-image" src="'+safe(imgs[0]||'')+'" alt="'+safe(p.name)+'"><div class="sol-thumbs">'+imgs.map((u,i)=>'<img src="'+safe(u)+'" alt="صورة '+(i+1)+'" onclick="document.getElementById(\'solMainImage\').src=this.src">').join('')+'</div></div><div class="sol-detail-info"><h2>'+safe(p.name)+'</h2><div class="price">'+money(p.price)+'</div><p>'+safe(p.description||'')+'</p><button class="small-btn primary" style="margin-top:20px" onclick="addToCart(\''+safe(p.id)+'\')">أضف للسلة</button></div></div>';
+ document.body.appendChild(view);
+}
+
+</script>
 <script>
 /* إعدادات الاتصال العامة. صلاحيات قاعدة البيانات يجب فرضها أيضًا عبر Supabase RLS. */
 const SUPABASE_URL = "https://bnwfdpxxzipebpfynnrr.supabase.co";
@@ -245,7 +265,7 @@ function renderProducts(){
  if(!shown.length){grid.innerHTML='<div class="empty">لا توجد منتجات في هذا القسم حاليًا.</div>';return}
  grid.innerHTML=shown.map(p=>`
  <article class="product-card">
-  <div class="product-photo"><img src="${safe((Array.isArray(p.gallery_urls)&&p.gallery_urls[0])||p.image_url||"")}" alt="${safe(p.name)}" loading="lazy" onerror="this.style.display='none'"></div>
+  <div class="product-photo" onclick="openProductDetails('${safe(p.id)}')" style="cursor:pointer"><img src="${safe((Array.isArray(p.gallery_urls)&&p.gallery_urls[0])||p.image_url||"")}" alt="${safe(p.name)}" loading="lazy" onerror="this.style.display='none'"></div>
   <div class="product-info"><h3>${safe(p.name)}</h3><p>${safe(p.description||"")}</p>
   <div class="price">${money(p.price)}</div>
   <div class="product-actions"><button class="small-btn primary" onclick="addToCart('${safe(p.id)}')">أضف للسلة</button>
@@ -253,7 +273,7 @@ function renderProducts(){
   </div></div></article>`).join("");
 }
 document.querySelectorAll(".filter").forEach(b=>b.addEventListener("click",()=>{activeFilter=b.dataset.filter;document.querySelectorAll(".filter").forEach(x=>x.classList.toggle("active",x===b));renderProducts()}));
-document.querySelectorAll(".category").forEach(a=>a.addEventListener("click",()=>{activeFilter=a.dataset.filter;document.querySelectorAll(".filter").forEach(x=>x.classList.toggle("active",x.dataset.filter===activeFilter));renderProducts()}));
+document.querySelectorAll(".category").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();openCategoryView(a.dataset.filter)}));
 
 function addToCart(id){const p=products.find(x=>String(x.id)===String(id));if(!p)return;const item=cart.find(x=>String(x.id)===String(id));if(item)item.qty++;else cart.push({id:p.id,name:p.name,price:Number(p.price),qty:1});saveCart();toast("تمت إضافة المنتج إلى السلة")}
 function saveCart(){localStorage.setItem("sol_cart",JSON.stringify(cart));document.getElementById("cartCount").textContent=cart.reduce((n,x)=>n+x.qty,0)}
