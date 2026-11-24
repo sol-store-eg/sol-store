@@ -94,8 +94,6 @@ footer p{color:#888;font-size:10px;letter-spacing:2px;line-height:2;direction:lt
 @media(max-width:760px){.topbar{height:auto;min-height:70px;flex-direction:column;gap:5px;padding:9px}.logo{font-size:30px}.hero{min-height:470px;padding:75px 5%}.categories{grid-template-columns:repeat(2,1fr)}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.product-photo{height:190px}section{padding:52px 5%}}
 @media(max-width:420px){.product-grid{grid-template-columns:1fr 1fr;gap:9px}.product-photo{height:150px}.product-info{padding:10px}.product-info h3{font-size:13px}.small-btn{font-size:10px}.category{min-height:135px}}
 
-/* SOL category and product detail views */
-#shopView{position:fixed;inset:0;z-index:25;background:#101010;display:none;overflow:auto;padding:18px 5% 100px}#shopView.show{display:block}.shop-head{display:flex;align-items:center;gap:14px;border-bottom:1px solid #333;padding:12px 0 18px;margin-bottom:22px}.shop-back{border:1px solid #777;background:none;color:#fff;padding:8px 14px}.shop-title{font-size:22px}.shop-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.shop-card{border:1px solid #333;background:#191919;overflow:hidden}.shop-card img{width:100%;height:190px;object-fit:cover;display:block}.shop-card .info{padding:12px}.shop-card h3{font-size:15px}.shop-card p{color:#aaa;font-size:12px}.shop-detail{max-width:850px;margin:auto}.shop-main-img{width:100%;max-height:520px;object-fit:contain;background:#1b1b1b}.shop-thumbs{display:flex;gap:8px;overflow:auto;margin:10px 0 20px}.shop-thumbs img{width:75px;height:75px;object-fit:cover;border:1px solid #555;cursor:pointer}.shop-detail h2{margin:10px 0}.shop-detail .price{font-size:22px}.shop-detail .desc{color:#bbb;white-space:pre-wrap;margin:14px 0}.shop-detail .options{color:#bbb;margin:10px 0}@media(max-width:420px){.shop-card img{height:150px}}
 </style>
 </head>
 <body>
@@ -204,8 +202,6 @@ footer p{color:#888;font-size:10px;letter-spacing:2px;line-height:2;direction:lt
  </div>
 </div>
 <div class="toast" id="toast"></div>
-<div id="shopView" aria-label="عرض المتجر"><div id="shopViewContent"></div></div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -257,7 +253,7 @@ function renderProducts(){
   </div></div></article>`).join("");
 }
 document.querySelectorAll(".filter").forEach(b=>b.addEventListener("click",()=>{activeFilter=b.dataset.filter;document.querySelectorAll(".filter").forEach(x=>x.classList.toggle("active",x===b));renderProducts()}));
-document.querySelectorAll(".category").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();openShopCatalog(a.dataset.filter)}));
+document.querySelectorAll(".category").forEach(a=>a.addEventListener("click",()=>{activeFilter=a.dataset.filter;document.querySelectorAll(".filter").forEach(x=>x.classList.toggle("active",x.dataset.filter===activeFilter));renderProducts()}));
 
 function addToCart(id){const p=products.find(x=>String(x.id)===String(id));if(!p)return;const item=cart.find(x=>String(x.id)===String(id));if(item)item.qty++;else cart.push({id:p.id,name:p.name,price:Number(p.price),qty:1});saveCart();toast("تمت إضافة المنتج إلى السلة")}
 function saveCart(){localStorage.setItem("sol_cart",JSON.stringify(cart));document.getElementById("cartCount").textContent=cart.reduce((n,x)=>n+x.qty,0)}
@@ -364,14 +360,6 @@ async function deleteProduct(id){
  toast("تم حذف المنتج");await loadProducts();
 }
 
-// Independent category and product pages
-let shopPreviousView="catalog";
-function closeShopView(){document.getElementById("shopView").classList.remove("show");document.body.style.overflow="";}
-function shopBack(){if(shopPreviousView==="detail"){shopPreviousView="catalog";renderShopCatalog(currentShopCategory);}else closeShopView();}
-let currentShopCategory="الكل";
-function openShopCatalog(category){currentShopCategory=category;shopPreviousView="catalog";renderShopCatalog(category);document.getElementById("shopView").classList.add("show");document.body.style.overflow="hidden";}
-function renderShopCatalog(category){const list=products.filter(p=>category==="الكل"||p.category===category);const content=document.getElementById("shopViewContent");content.innerHTML='<div class="shop-head"><button class="shop-back" onclick="closeShopView()">← رجوع</button><div class="shop-title">'+safe(category)+'</div></div><div class="shop-grid">'+(list.length?list.map(p=>'<article class="shop-card"><img src="'+safe((Array.isArray(p.gallery_urls)&&p.gallery_urls[0])||p.image_url||'')+'" alt="'+safe(p.name)+'" onclick="openShopProduct(\''+safe(p.id)+'\')" onerror="this.style.display=\'none\'"><div class="info"><h3>'+safe(p.name)+'</h3><p>'+safe(p.description||'')+'</p><div class="price">'+money(p.price)+'</div><button class="small-btn" onclick="openShopProduct(\''+safe(p.id)+'\')">عرض التفاصيل</button></div></article>').join(""):'<div class="empty">لا توجد منتجات في هذا القسم حاليًا.</div>')+'</div>';}
-function openShopProduct(id){const p=products.find(x=>String(x.id)===String(id));if(!p)return;shopPreviousView="detail";const imgs=Array.isArray(p.gallery_urls)&&p.gallery_urls.length?p.gallery_urls:(p.image_url?[p.image_url]:[]);const content=document.getElementById("shopViewContent");content.innerHTML='<div class="shop-head"><button class="shop-back" onclick="shopBack()">← رجوع</button><div class="shop-title">تفاصيل المنتج</div></div><div class="shop-detail"><img id="shopHeroImage" class="shop-main-img" src="'+safe(imgs[0]||'')+'" alt="'+safe(p.name)+'">'+(imgs.length>1?'<div class="shop-thumbs">'+imgs.map((u,i)=>'<img src="'+safe(u)+'" onclick="document.getElementById(\'shopHeroImage\').src=this.src" alt="صورة '+(i+1)+'"></div>':'')+'<h2>'+safe(p.name)+'</h2><div class="price">'+money(p.price)+'</div><div class="desc">'+safe(p.description||'')+'</div>'+(p.sizes&&p.sizes.length?'<div class="options">المقاسات: '+safe(Array.isArray(p.sizes)?p.sizes.join(' / '):p.sizes)+'</div>':'')+(p.colors&&p.colors.length?'<div class="options">الألوان: '+safe(Array.isArray(p.colors)?p.colors.join(' / '):p.colors)+'</div>':'')+'<button class="btn" onclick="addToCart(\''+safe(p.id)+'\')">إضافة للسلة</button></div>';}
 
 saveCart();loadProducts();checkSession();
 </script>
